@@ -38,7 +38,7 @@ function addSales(total, dpt, id) {
 	var transaction = total;
 	var dept = dpt;
 
-	connection.query('UPDATE Departments SET TotalSales = TotalSales + ' + transaction + 'WHERE ?', [{
+	connection.query('UPDATE Departments SET total_sales = total_sales + ' + transaction + 'WHERE ?', [{
 		departmanet_name
         : dept
 	}], function(error, response) {

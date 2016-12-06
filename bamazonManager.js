@@ -63,8 +63,8 @@ function lowInventory() {
 //updates/adds to db inventory (display occurs via next function)
 function addInventory(newQuant, currentProduct) {
     var updatedQuant = 0;
-    connection.query('UPDATE Products SET stock_quantity = " " WHERE product_id = " "', [{
-    product_id: currentProduct
+    connection.query('UPDATE Products SET ? WHERE ?', [{
+    product_name: currentProduct
 	}], function (error, response) {
         if (error) throw error;
         else {
@@ -75,24 +75,10 @@ function addInventory(newQuant, currentProduct) {
         }
     });
     
-/*  function purchase(widget, requesting, quantity, reply, total) {
-	connection.query("UPDATE Products SET ? WHERE ?", [{
-    stock_quantity: quantity - requesting
-}, 
-    {
-    product_name: widget
-}], function(error, response) {
-	console.log("Your purchase, totaling $" + total + ", has been completed.");
-	purchaseAgain();
-});
-
-
-} */
-
     //takes result from addInventory and displays new product quantity
     function executeChange(updatedQuant, currentProduct) {
         console.log("Thanks. There are now " + updatedQuant + " " + currentProduct + "'s in stock.");
-        connection.query('UPDATE Products SET stock_quantity WHERE product_id', [{
+        connection.query('UPDATE Products SET ? WHERE ?', [{
             stock_quantity: updatedQuant
 		}, {
             product_name: currentProduct
